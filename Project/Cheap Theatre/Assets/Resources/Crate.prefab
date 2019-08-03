@@ -11,9 +11,10 @@ GameObject:
   - component: {fileID: 3080749720093738401}
   - component: {fileID: 3080749720093738462}
   - component: {fileID: 3080749720093738463}
-  - component: {fileID: 3080749720093738460}
   - component: {fileID: 3080749720093738400}
-  m_Layer: 0
+  - component: {fileID: 131376706}
+  - component: {fileID: 6771390084274832278}
+  m_Layer: 11
   m_Name: Crate
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -92,7 +93,7 @@ BoxCollider2D:
   m_GameObject: {fileID: 3080749720093738461}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 669291313746e994b8fafb98b9e4023d, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -107,20 +108,8 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.95, y: 0.95}
   m_EdgeRadius: 0
---- !u!114 &3080749720093738460
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3080749720093738461}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eea913249a836aa409bbda80159ebdb9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!50 &3080749720093738400
 Rigidbody2D:
   serializedVersion: 4
@@ -142,3 +131,53 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 0
+--- !u!114 &131376706
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3080749720093738461}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54f1b28b7c94da145a4bc60a8fdd93e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CurrentState: 0
+  Persona: {fileID: 3080749720093738461}
+  targetPosition: {fileID: 0}
+  TimeTo: 0
+  TimeMax: 0
+  TimeTaken: 0
+  StillMargin: 0.1
+  ThrowCalculations:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6771390084274832278}
+        m_MethodName: ThrowMe
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  ThrowRight: 1
+--- !u!114 &6771390084274832278
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3080749720093738461}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b2a91b6f53dcbda4c93fe49a4cf921e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Body: {fileID: 0}
+  ThrowSpeed: 10

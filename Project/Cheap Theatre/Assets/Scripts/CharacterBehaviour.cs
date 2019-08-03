@@ -2,17 +2,84 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+// used for all the other character interactions
 public class CharacterBehaviour : MonoBehaviour
 {
+    public bool IsHolding = false;
+    public GameObject HeldItem = null;
+
+    public GameObject Hand;
+
+    public GameObject PickUpRangeObject;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        WorldManager.Player = this;
+
+
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if (Input.anyKeyDown)
+        {
+            if (IsHolding)
+            {
+                // E throw
+                if (Input.GetKeyDown(KeyCode.E))
+                {
+                    HeldItem.GetComponent<ItemState>().SetState(ItemState.ItemLocation.Flying);
+                    HeldItem.GetComponent<ItemState>().Throw(GetComponent<CharacterController2D>().m_FacingRight);
+                    IsHolding = false;
+                    HeldItem = null;
+                }
+                // Q drop
+                if (Input.GetKeyDown(KeyCode.Q))
+                {
+                    HeldItem.GetComponent<ItemState>().SetState(ItemState.ItemLocation.Drop);
+                    IsHolding = false;
+                    HeldItem = null;
+                }
+
+            }
+            else
+            {
+                if (Input.GetKeyDown(KeyCode.E))
+                {
+                    // try to pickup an item
+                    RaycastHit2D[] results = new RaycastHit2D[10];
+                    ContactFilter2D filter = new ContactFilter2D();
+                    filter.useLayerMask = true;
+
+                    filter.layerMask = LayerMask.GetMask("Item");
+                    
+                    int count = PickUpRangeObject.GetComponent<BoxCollider2D>().Cast(Vector2.zero,filter, results);
+
+                    if (count>0)
+                    {
+                        GameObject closest = results[0].transform.gameObject;
+                        for (int i = 1; i < count; i++)
+                        {
+                            if ((results[i].transform.position - transform.position).magnitude< (transform.position - closest.transform.position).magnitude)
+                            {
+                                closest = results[i].transform.gameObject;
+                            }
+                        }
+
+                        // we pick that guy up
+                        IsHolding = true;
+                        HeldItem = closest;
+                        Debug.Log(HeldItem);
+                        HeldItem.GetComponent<ItemState>().targetPosition = Hand;
+                        HeldItem.GetComponent<ItemState>().SetState(ItemState.ItemLocation.Pickup);
+                        
+                    }
+
+                }
+            }
+        }
     }
 }
