@@ -12,8 +12,6 @@ public class ObjectPreview : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Render = null;
-        Preview = null;
         
     }
 
@@ -41,10 +39,10 @@ public class ObjectPreview : MonoBehaviour
 
     public void RemovePreview()
     {
-        Body = null;
-        Render = null;
+        Debug.Log(Preview);
         Destroy(Preview);
         Preview = null;
+
     }
 
 }

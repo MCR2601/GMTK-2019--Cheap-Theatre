@@ -29,4 +29,12 @@ public class CrateScript : MonoBehaviour
         Body.velocity = new Vector2(right ? ThrowSpeed : -ThrowSpeed,0);
 
     }
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.tag == "MainCamera")
+        {
+            // delete myself
+            ObjectProvider.ReturnGameObject(gameObject);
+        }
+    }
 }

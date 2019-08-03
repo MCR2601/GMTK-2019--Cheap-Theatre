@@ -25,24 +25,35 @@ public class Spawner : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        time += Time.deltaTime;
-        if (time > 5)
-        {
-            SpawnObject();
-        }
+
     }
 
     public void SpawnObject()
     {
-        Preview.enabled = false;
+        
 
         if (ObjectProvider.GetGameObject(PrefabName,this,out myThing))
         {
             myThing.transform.position = this.transform.position;
             Preview.RemovePreview();
         }
+        
+    }
+    
+    public void Reset()
+    {
+        // reenable the preview
+        Preview.SetPreview(Resources.Load<GameObject>(PrefabName));
+    }
 
-
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        Debug.Log("enter");
+        // check for camera
+        if (collision.tag == "MainCamera")
+        {
+            SpawnObject();
+        }
     }
 
 }

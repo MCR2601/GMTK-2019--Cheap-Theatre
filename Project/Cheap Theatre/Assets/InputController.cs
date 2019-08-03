@@ -29,7 +29,7 @@ public class InputController : MonoBehaviour
         float direction = 0;
         if (Input.anyKey)
         {
-            
+
             if (Input.GetKeyDown(KeyCode.A)||Input.GetKey(KeyCode.A))
             {
                 direction += -1;

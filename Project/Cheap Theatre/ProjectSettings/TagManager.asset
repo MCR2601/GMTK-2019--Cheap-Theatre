@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Enemy
   - Item
+  - Spawner
   layers:
   - Default
   - TransparentFX
@@ -19,9 +20,9 @@ TagManager:
   - Ground
   - Enemy
   - Item
+  - Spawner
   - 
-  - 
-  - 
+  - Camera
   - 
   - 
   - 

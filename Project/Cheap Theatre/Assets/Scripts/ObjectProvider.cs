@@ -8,7 +8,7 @@ public static class ObjectProvider
     private static Dictionary<string, GameObject> resourceMapping = new Dictionary<string, GameObject>();
 
     // used to store if an object is already spawned
-    private static Dictionary<string, object> ownerMapping = new Dictionary<string, object>();
+    private static Dictionary<string, Spawner> ownerMapping = new Dictionary<string, Spawner>();
 
     private static Dictionary<GameObject,string> goToString = new Dictionary<GameObject, string>();
 
@@ -45,9 +45,10 @@ public static class ObjectProvider
         return false;
     }
 
-    private static void ReturnGameObject(GameObject obj)
+    public static void ReturnGameObject(GameObject obj)
     {
         string name = goToString[obj];
+        ownerMapping[name].Reset();
         ownerMapping[name] = null;
 
         obj.SetActive(false);
@@ -67,7 +68,7 @@ public static class ObjectProvider
         return saveLiveMapping[resourceMapping[prefabPath]];
     }
 
-    public static bool GetGameObject(string prefabPath,object newOwner, out GameObject go)
+    public static bool GetGameObject(string prefabPath,Spawner newOwner, out GameObject go)
     {
         LoadPrefab(prefabPath);
         GameObject obj = GenerateGameobject(prefabPath);

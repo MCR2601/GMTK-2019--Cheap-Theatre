@@ -9,6 +9,7 @@ public class ItemState : MonoBehaviour
     [SerializeField] public ItemLocation CurrentState;
 
     private Rigidbody2D body;
+    public BoxCollider2D collider;
     public GameObject Persona;
 
     public GameObject targetPosition;
@@ -27,6 +28,7 @@ public class ItemState : MonoBehaviour
     {
         body = Persona.GetComponent<Rigidbody2D>();
         CurrentState = ItemLocation.Still;
+        collider = Persona.GetComponent<BoxCollider2D>();
     }
 
     // Update is called once per frame
@@ -65,16 +67,16 @@ public class ItemState : MonoBehaviour
         switch (newState)
         {
             case ItemLocation.Carried:
-                body.simulated = false;
+                collider.isTrigger = true;
                 break;
             case ItemLocation.Pickup:
-                body.simulated = false;
+                collider.isTrigger = true;
                 break;
             case ItemLocation.Drop:
-                body.simulated = true;
+                collider.isTrigger = false;
                 break;
             case ItemLocation.Flying:
-                body.simulated = true;
+                collider.isTrigger = false;
                 break;
             case ItemLocation.Still:
 
