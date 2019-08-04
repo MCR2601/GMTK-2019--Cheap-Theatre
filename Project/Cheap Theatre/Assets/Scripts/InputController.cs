@@ -15,6 +15,10 @@ public class InputController : MonoBehaviour
 
     public UnityEvent test;
 
+    private float timeToReset = 3f;
+    private float timeResetHeld = 0;
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -30,6 +34,19 @@ public class InputController : MonoBehaviour
         if (Input.anyKey)
         {
 
+            if (Input.GetKeyDown(KeyCode.R)||Input.GetKey(KeyCode.R))
+            {
+                timeResetHeld += Time.deltaTime;
+                if (timeResetHeld >= timeToReset)
+                {
+                    timeResetHeld = 0;
+                    WorldManager.ResetPlayer();
+                }
+            }
+            else
+            {
+                timeResetHeld = 0;
+            }
             if (Input.GetKeyDown(KeyCode.A)||Input.GetKey(KeyCode.A))
             {
                 direction += -1;

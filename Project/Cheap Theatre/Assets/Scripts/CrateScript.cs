@@ -25,8 +25,11 @@ public class CrateScript : MonoBehaviour
     public void ThrowMe()
     {
         bool right = GetComponent<ItemState>().ThrowRight;
+        bool drop = GetComponent<ItemState>().Drop;
 
-        Body.velocity = new Vector2(right ? ThrowSpeed : -ThrowSpeed,0);
+        float speed = drop ? 1f : ThrowSpeed;
+
+        Body.velocity = new Vector2(right ? speed : -speed, 3);
 
     }
     private void OnTriggerExit2D(Collider2D collision)

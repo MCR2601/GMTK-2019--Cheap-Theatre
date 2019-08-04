@@ -7,6 +7,8 @@ TagManager:
   - Enemy
   - Item
   - Spawner
+  - Drop
+  - KillPlain
   layers:
   - Default
   - TransparentFX
@@ -21,11 +23,11 @@ TagManager:
   - Enemy
   - Item
   - Spawner
-  - 
+  - Drop
   - Camera
-  - 
-  - 
-  - 
+  - ThrowThing
+  - Lever
+  - Pickup
   - 
   - 
   - 

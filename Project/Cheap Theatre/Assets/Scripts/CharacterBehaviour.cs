@@ -40,6 +40,7 @@ public class CharacterBehaviour : MonoBehaviour
                 if (Input.GetKeyDown(KeyCode.Q))
                 {
                     HeldItem.GetComponent<ItemState>().SetState(ItemState.ItemLocation.Drop);
+                    HeldItem.GetComponent<ItemState>().Throw(GetComponent<CharacterController2D>().m_FacingRight,true);
                     IsHolding = false;
                     HeldItem = null;
                 }
@@ -54,8 +55,10 @@ public class CharacterBehaviour : MonoBehaviour
                     ContactFilter2D filter = new ContactFilter2D();
                     filter.useLayerMask = true;
 
-                    filter.layerMask = LayerMask.GetMask("Item");
-                    
+                    filter.layerMask = LayerMask.GetMask("Item","Drop","ThrowThing","Lever");
+                    filter.useTriggers = false;
+
+                    //Physics2D.BoxCast(PickUpRangeObject.GetComponent<BoxCollider2D>().offset,PickUpRangeObject.GetComponent<BoxCollider2D>().size,0,Vector2.zero,filter,results)
                     int count = PickUpRangeObject.GetComponent<BoxCollider2D>().Cast(Vector2.zero,filter, results);
 
                     if (count>0)
@@ -68,13 +71,25 @@ public class CharacterBehaviour : MonoBehaviour
                                 closest = results[i].transform.gameObject;
                             }
                         }
+                        Debug.Log(closest);
+                        if (closest.GetComponent<LeverLogic>() != null)
+                        {
+                            Debug.Log("Hello");
+                            // we trigger a lever
+                            closest.GetComponent<LeverLogic>().Trigger();
+                        }
+                        else
+                        {
+                            // we pick up the item
 
-                        // we pick that guy up
-                        IsHolding = true;
-                        HeldItem = closest;
-                        Debug.Log(HeldItem);
-                        HeldItem.GetComponent<ItemState>().targetPosition = Hand;
-                        HeldItem.GetComponent<ItemState>().SetState(ItemState.ItemLocation.Pickup);
+                            // we pick that guy up
+                            IsHolding = true;
+                            HeldItem = closest;
+                            //Debug.Log(HeldItem);
+                            HeldItem.GetComponent<ItemState>().targetPosition = Hand;
+                            HeldItem.GetComponent<ItemState>().SetState(ItemState.ItemLocation.Pickup);
+                        }
+
                         
                     }
 

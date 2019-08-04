@@ -22,6 +22,7 @@ public class ItemState : MonoBehaviour
 
     public UnityEvent ThrowCalculations;
     public bool ThrowRight = true;
+    public bool Drop = false;
 
     // Start is called before the first frame update
     void Start()
@@ -68,18 +69,22 @@ public class ItemState : MonoBehaviour
         {
             case ItemLocation.Carried:
                 collider.isTrigger = true;
+                collider.gameObject.layer = LayerMask.NameToLayer("Drop");
                 break;
             case ItemLocation.Pickup:
                 collider.isTrigger = true;
+                collider.gameObject.layer = LayerMask.NameToLayer("Drop");
                 break;
             case ItemLocation.Drop:
+                collider.gameObject.layer = LayerMask.NameToLayer("ThrowThing");
                 collider.isTrigger = false;
-                break;
+                break;  
             case ItemLocation.Flying:
+                collider.gameObject.layer = LayerMask.NameToLayer("ThrowThing");
                 collider.isTrigger = false;
                 break;
             case ItemLocation.Still:
-
+                collider.gameObject.layer = LayerMask.NameToLayer("Item");
                 break;
             default:
                 throw new ArgumentOutOfRangeException(nameof(newState), newState, null);
@@ -88,9 +93,21 @@ public class ItemState : MonoBehaviour
         CurrentState = newState;
     }
 
-    public void Throw(bool right)
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.tag == "Player")
+        {
+            if (CurrentState == ItemLocation.Drop || CurrentState == ItemLocation.Flying)
+            {
+                SetState(ItemLocation.Still);
+            }
+        }
+    }
+
+    public void Throw(bool right,bool drop = false)
     {
         ThrowRight = right;
+        Drop = drop;
         ThrowCalculations.Invoke();
     }
     public enum ItemLocation

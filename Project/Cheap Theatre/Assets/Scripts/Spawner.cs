@@ -48,7 +48,6 @@ public class Spawner : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log("enter");
         // check for camera
         if (collision.tag == "MainCamera")
         {

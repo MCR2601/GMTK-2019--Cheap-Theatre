@@ -9,6 +9,8 @@ public class ObjectPreview : MonoBehaviour
     public Rigidbody2D Body;
     public float Visibility = 0.25f;
 
+    public GameObject HoverChild;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -28,21 +30,21 @@ public class ObjectPreview : MonoBehaviour
             Destroy(Preview);
         }
 
+        HoverChild.SetActive(true);
         Preview = Instantiate(obj);
         Preview.transform.SetParent(transform);
         Body = Preview.GetComponent<Rigidbody2D>();
         Body.simulated = false;
         Preview.transform.position = new Vector3(0,0,0)  + transform.position;
         Render = Preview.GetComponent<SpriteRenderer>();
-        Render.color = new Color(1,1,1,Visibility);
+        Render.color = new Color(Render.color.r, Render.color.g, Render.color.b, Visibility);
     }
 
     public void RemovePreview()
     {
-        Debug.Log(Preview);
         Destroy(Preview);
         Preview = null;
-
+        HoverChild.SetActive(false);
     }
 
 }

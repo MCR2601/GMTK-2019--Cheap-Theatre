@@ -16,6 +16,7 @@ public class CameraController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        WorldManager.MainCamera = this;
         reference = this;
         transform.position = new Vector3(Player.transform.position.x,Player.transform.position.y,transform.position.z);
     }
