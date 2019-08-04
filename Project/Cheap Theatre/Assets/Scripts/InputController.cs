@@ -24,6 +24,7 @@ public class InputController : MonoBehaviour
     {
         controller = player.GetComponent<CharacterController2D>();
         controller.GetComponent<Rigidbody2D>().freezeRotation = true;
+        //WorldManager.movement = this;
     }
 
     // Update is called once per frame
@@ -57,7 +58,7 @@ public class InputController : MonoBehaviour
                 direction += 1;
             }
 
-            if (Input.GetKeyDown(KeyCode.W))
+            if (Input.GetKeyDown(KeyCode.Space)||Input.GetKeyDown(KeyCode.W))
             {
                 j = true;
             }

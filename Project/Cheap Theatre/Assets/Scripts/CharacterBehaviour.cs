@@ -16,7 +16,7 @@ public class CharacterBehaviour : MonoBehaviour
     void Start()
     {
         WorldManager.Player = this;
-
+        //WorldManager.movement = this;
 
 
     }

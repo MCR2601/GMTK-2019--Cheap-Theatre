@@ -15,10 +15,15 @@ public class SlidingDoorController : MonoBehaviour
     public float Speed = 3f;
     public float SmoothTime = 0.05f;
 
+    public bool AutoInit = true;
+
     // Start is called before the first frame update
     void Start()
     {
-        Origin = transform.position;
+        if (AutoInit)
+        {
+            Origin = transform.position;
+        }
         
     }
 
@@ -27,8 +32,13 @@ public class SlidingDoorController : MonoBehaviour
     {
         Vector2 target = Origin + (NotAtHome ? TargetTranslation : new Vector2());
 
-        transform.position = Vector2.SmoothDamp(transform.position, target, ref reference, SmoothTime, Speed);
+        transform.localPosition = Vector2.SmoothDamp(transform.localPosition, target, ref reference, SmoothTime, Speed);
+        //transform.localPosition = Vector2.MoveTowards(transform.localPosition, target, 3f*Time.deltaTime);
+    }
 
+    public void ReloadOrigin()
+    {
+        Origin = transform.position;
     }
 
     public void SetGoal(Vector2 goal)

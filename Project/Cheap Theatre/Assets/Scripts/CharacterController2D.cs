@@ -39,6 +39,8 @@ public class CharacterController2D : MonoBehaviour
 
         if (OnCrouchEvent == null)
             OnCrouchEvent = new BoolEvent();
+
+        WorldManager.movement = this;
     }
 
     private void FixedUpdate()
@@ -63,6 +65,10 @@ public class CharacterController2D : MonoBehaviour
 
     public void Move(float move, bool crouch, bool jump)
     {
+        if (!enabled)
+        {
+            return;
+        }
         // If crouching, check to see if the character can stand up
         if (!crouch)
         {
